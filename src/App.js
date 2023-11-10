@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/Header'
+import Start from './components/Start'
+import React from "react"
+
 
 function App() {
+  const phrase = "Cool beans"
+  const [truthyCheck, setTruthyCheck] = React.useState(true)
+
+  function updateTruthy() {
+    setTruthyCheck(prevState => !prevState)
+  }
+
   return (
     <div className="App">
+      
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Tyler <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
       </header>
+
+      <main>
+        <Start />
+      </main>
+    
     </div>
   );
 }
+
 
 export default App;
