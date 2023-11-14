@@ -1,13 +1,8 @@
 function Header(props) {
   return (
     <>
-      <p>{props.phrase}</p>
-      <button 
-        className={props.truthyCheck ? "btn btn-primary" : "btn btn-secondary"} 
-        onClick={props.updateTruthy}
-      >
-        HELLO {props.truthyCheck === true ? "TRUE" : "FALSE"}
-      </button>
+      <h2>Tycation.com</h2>
+      <p>Vacation Planning for Those Who Need to Control Everything</p>
     </>
   );
 }

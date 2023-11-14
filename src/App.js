@@ -12,15 +12,27 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className='container-fluid p-0'>
       
-      <header className="App-header">
-        < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
-      </header>
+      <div className='row'>
+        <header className="App-header">
+          < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
+        </header>
+      </div>
 
-      <main>
-        <Start />
-      </main>
+      <div className='row'>
+        <main>
+          <div className="col">
+              <Start />
+          </div>
+          <div className="col">
+              <Start />
+          </div>
+          <div className="col">
+              <Start />
+          </div>
+        </main>
+      </div>
     
     </div>
   );

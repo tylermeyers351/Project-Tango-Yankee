@@ -7,14 +7,17 @@ function Start(props) {
 
     const handleStartDateChange = (e) => {
         setStartDate(e.target.value);
+        console.log(e.target.value);
         };
 
         const handleEndDateChange = (e) => {
         setEndDate(e.target.value);
+        console.log(e.target.value);
         };
 
         const handleLocationChange = (e) => {
         setLocation(e.target.value);
+        console.log(e.target.value);
         };
 
         const handleSubmit = (e) => {
@@ -28,34 +31,34 @@ function Start(props) {
 
     return (
         <form className="startClass" onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="startDate">Start Date:</label>
-          <input
-            type="date"
-            id="startDate"
-            value={startDate}
-            onChange={handleStartDateChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="endDate">End Date:</label>
-          <input
-            type="date"
-            id="endDate"
-            value={endDate}
-            onChange={handleEndDateChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="location">Location:</label>
-          <input
-            type="text"
-            id="location"
-            value={location}
-            onChange={handleLocationChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
+          <div>
+            <label htmlFor="startDate">Start Date:</label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={handleStartDateChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="endDate">End Date:</label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={handleEndDateChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="location">Location:</label>
+            <input
+              type="text"
+              id="location"
+              value={location}
+              onChange={handleLocationChange}
+            />
+          </div>
+          <button type="submit">Submit</button>
       </form>
     );
 }
