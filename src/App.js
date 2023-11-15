@@ -12,13 +12,13 @@ function App() {
   }
 
   return (
-    <div className='container-fluid p-0'>
+    <div className='container-fluid'>
       
-      <div className='row'>
+      <div className='row webHeader'>
           < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
       </div>
 
-      <div className='row'>
+      <div className='row mainContent'>
           <div className="col-3"></div>
           <div className="col-6">
             <Start />
