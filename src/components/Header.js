@@ -1,9 +1,9 @@
 function Header(props) {
   return (
-    <>
-      <h2>Tycation.com</h2>
+    <div className="webHeader">
+      <h1>Tycation.com</h1>
       <p>Vacation Planning for Those Who Need to Control Everything</p>
-    </>
+    </div>
   );
 }
 

@@ -30,36 +30,51 @@ function Start(props) {
     console.log('Location:', location);
 
     return (
-        <form className="startClass" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="startDate">Start Date:</label>
-            <input
-              type="date"
-              id="startDate"
-              value={startDate}
-              onChange={handleStartDateChange}
-            />
+      <>
+        <h3>Plan a Trip you'll Never Forget!</h3>
+
+        <form onSubmit={handleSubmit}>
+          {/* Location Selection */}
+          <div className="row">
+            <div>
+              <input
+                type="text"
+                id="location"
+                value={location}
+                onChange={handleLocationChange}
+                placeholder="Where to?"
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="endDate">End Date:</label>
-            <input
-              type="date"
-              id="endDate"
-              value={endDate}
-              onChange={handleEndDateChange}
-            />
+
+          {/* Date Selection */}
+          <div className="row">
+            <div className="col">
+              <label htmlFor="startDate">Start Date:&nbsp;</label>
+              <input
+                type="date"
+                id="startDate"
+                value={startDate}
+                onChange={handleStartDateChange}
+              />
+            </div>
+
+            <div className="col">
+              <label htmlFor="endDate">End Date:&nbsp;</label>
+              <input
+                type="date"
+                id="endDate"
+                value={endDate}
+                onChange={handleEndDateChange}
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="location">Location:</label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              onChange={handleLocationChange}
-            />
+
+          <div className="d-grid">
+            <button className="btn btn-primary" type="button">Submit</button>
           </div>
-          <button type="submit">Submit</button>
-      </form>
+        </form>
+      </>
     );
 }
   

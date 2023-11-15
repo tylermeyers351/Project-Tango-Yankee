@@ -15,23 +15,15 @@ function App() {
     <div className='container-fluid p-0'>
       
       <div className='row'>
-        <header className="App-header">
           < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
-        </header>
       </div>
 
       <div className='row'>
-        <main>
-          <div className="col">
-              <Start />
+          <div className="col-3"></div>
+          <div className="col-6">
+            <Start />
           </div>
-          <div className="col">
-              <Start />
-          </div>
-          <div className="col">
-              <Start />
-          </div>
-        </main>
+          <div className="col-3"></div>
       </div>
     
     </div>
