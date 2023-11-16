@@ -1,3 +1,11 @@
+
+#F5793B orange
+#111111 black
+#f7fbfc white
+#f79a6b light orange
+#f1580c orange 2
+#2a2a2a lighter black
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

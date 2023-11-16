@@ -4,7 +4,6 @@ import React from "react"
 
 
 function App() {
-  const phrase = "Cool beans"
   const [truthyCheck, setTruthyCheck] = React.useState(true)
 
   function updateTruthy() {
@@ -15,7 +14,7 @@ function App() {
     <div className='container-fluid'>
       
       <div className='row webHeader'>
-          < Header phrase={phrase} updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
+          < Header updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
       </div>
 
       <div className='row mainContent'>
