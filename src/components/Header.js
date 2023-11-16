@@ -1,13 +1,13 @@
-function Header(props) {
+function Header() {
   return (
     <div className="row smaller-font">
       <nav className="navbar navbar-expand-lg fixed-top bg-light navbar-light">
         <div className="container">
           <a className="navbar-brand" href="#"
             ><img
-              id="MDB-logo"
+              id="Compass-logo"
               src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Arrow_Compass_Orange.png"
-              alt="MDB Logo"
+              alt="Compass Logo"
               draggable="false"
               height="40"
           /><h3 className="logoStyle mt-1">Tycation.com</h3></a>

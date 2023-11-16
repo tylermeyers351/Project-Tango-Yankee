@@ -1,6 +1,6 @@
 import React from "react"
 
-function Start(props) {
+function Start() {
     const [startDate, setStartDate] = React.useState('');
     const [endDate, setEndDate] = React.useState('');
     const [location, setLocation] = React.useState('');
@@ -51,12 +51,12 @@ function Start(props) {
     };
 
     return (
-      <>
-        <h3 className="m-4">Plan a Trip you'll Never Forget!</h3>
+      <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
+        <h3 style={{ color: '#2a2a2a' }} className="m-4">Plan the Trip of a Lifetime!</h3>
 
         <form onSubmit={handleSubmit}>
           {/* Location Selection */}
-          <div className="row m-3 form-control-lg">
+          <div className="row m-3">
             <div>
               <input
                 type="text"
@@ -69,7 +69,7 @@ function Start(props) {
           </div>
 
           {/* Date Selection */}
-          <div className="row m-3 form-control-lg">
+          <div className="row m-3">
             
             <div className="col">
               <label htmlFor="startDate">Start Date:&nbsp;</label>
@@ -95,11 +95,11 @@ function Start(props) {
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <div className="d-grid m-5 p-1">
-            <button onClick={handleSubmit} className="btn btn-primary" type="button">Submit</button>
+          <div className="d-grid m-4 p-1">
+            <button style={{ color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none' }} onClick={handleSubmit} className="btn" type="button">Submit</button>
           </div>
         </form>
-      </>
+      </div>
     );
 }
   

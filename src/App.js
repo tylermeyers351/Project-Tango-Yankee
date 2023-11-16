@@ -13,16 +13,20 @@ function App() {
   return (
     <div className='container-fluid'>
       
-      <div className='row webHeader'>
+      <div className='row webHeader bg-light'>
           < Header updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
       </div>
 
-      <div className='row mainContent'>
-          <div className="col-3"></div>
-          <div className="col-6">
+      <div className='row mainContent bg-light'>
+          <div className="col-1 col-md-3 col-xl-4" >
+            {/* <p>Column 1</p> */}
+          </div>
+          <div className="col-10 col-md-6 col-xl-4">
             <Start />
           </div>
-          <div className="col-3"></div>
+          <div className="col-1 col-md-3 col-xl-4">
+            {/* <p>Column 3</p> */}
+          </div>
       </div>
     
     </div>
