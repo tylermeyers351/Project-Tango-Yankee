@@ -1,6 +1,6 @@
 import React from "react"
 
-function Start() {
+function Start(props) {
     const [startDate, setStartDate] = React.useState('');
     const [endDate, setEndDate] = React.useState('');
     const [location, setLocation] = React.useState('');
@@ -48,6 +48,8 @@ function Start() {
       setError("");
 
       localStorage.setItem("localData", JSON.stringify(vacationData));
+
+      props.updateTruthy()
     };
 
     return (
