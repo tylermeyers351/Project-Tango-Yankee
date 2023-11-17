@@ -11,6 +11,9 @@ function App() {
     console.log("Truthy updated. Switching components out.")
   }
 
+  const vacayData = JSON.parse(localStorage.getItem("localData"))
+  console.log(vacayData)
+
   return (
     <div className='container-fluid'>
       
@@ -22,13 +25,13 @@ function App() {
       {truthyCheck && (
       <div className='row mainContent bg-light'>
           <div className="col-1 col-md-3 col-xl-4" >
-            {/* <p>Column 1</p> */}
+            {/* <p>Unused Column 1</p> */}
           </div>
           <div className="col-10 col-md-6 col-xl-4">
             <Start updateTruthy={updateTruthy} />
           </div>
           <div className="col-1 col-md-3 col-xl-4">
-            {/* <p>Column 3</p> */}
+            {/* <p>Unused Column 3</p> */}
           </div>
       </div>
       )}
@@ -41,6 +44,13 @@ function App() {
           </div>
           <div className="col-10 col-md-6 col-xl-4">
             <p>Column 2 (Planner - main content)</p>
+            {vacayData && 
+            <>
+            <p>Start Date: {vacayData.startDate}</p>
+            <p>End Date: {vacayData.endDate}</p>
+            <p>Location: {vacayData.location}</p>
+            </>
+            }
           </div>
           <div className="col-1 col-md-3 col-xl-4">
             <p>Column 3 (Map)</p>
