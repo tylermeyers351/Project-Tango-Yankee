@@ -12,10 +12,6 @@ code {
     monospace;
 }
 
-h1, h2, h3, p {
-  text-align: center;
-}
-
 input {
   width: 100%;
 }

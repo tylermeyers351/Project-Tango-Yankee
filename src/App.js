@@ -1,6 +1,8 @@
 import Header from './components/Header'
-import Sidebar from './components/Sidebar'
 import Start from './components/Start'
+import Sidebar from './components/Sidebar'
+import Planner from './components/Planner'
+import Map from './components/Map'
 import React from "react"
 
 
@@ -21,9 +23,10 @@ function App() {
     <div className='container-fluid'>
       
       <div className='row webHeader bg-light'>
-          < Header updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
+          < Header />
       </div>
 
+      {/* Initial landing page */}
       {/* Only display when truthyCheck is true - when switched to false, other components will be displayed */}
       {truthyCheck && (
       <div className='row mainContent bg-light'>
@@ -39,26 +42,29 @@ function App() {
       </div>
       )}
 
-      {/* Only display when truthyCheck is false */}
+      {/* Vacation planning page */}
+     {/* Only display when truthyCheck is false */}
       {!truthyCheck && (
       <div className='row mainContent bg-light'>
-          <div className="col-1 col-md-3 col-xl-4" >
-            <p>Column 1 (Sidebar)</p>
-            <Sidebar updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
-          </div>
-          <div className="col-10 col-md-6 col-xl-4">
-            <p>Column 2 (Planner - main content)</p>
-            {vacayData && 
-            <>
-              <p>Start Date: {vacayData.startDate}</p>
-              <p>End Date: {vacayData.endDate}</p>
-              <p>Location: {vacayData.location}</p>
-            </>
-            }
-          </div>
-          <div className="col-1 col-md-3 col-xl-4">
-            <p>Column 3 (Map)</p>
-          </div>
+
+        {/* Sidebar component */}
+        <div className="d-none d-lg-block col-lg-2 col-xl-2" >
+          <Sidebar updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
+        </div>
+
+        {/* Planner (main) component */}
+        <div className="col-12 col-lg-6 col-xl-6">
+          < Planner vacayData={vacayData} />
+        </div>
+
+        {/* Map component */}
+        <div className="col-12 col-lg-4 col-xl-4">
+          <img
+            style={{ width: '100%' }}
+            src='https://blog.yelp.com/wp-content/uploads/2018/01/2018-01-25-11.24.49.png'
+          />
+        </div>
+
       </div>
       )}
     
