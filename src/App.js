@@ -43,7 +43,7 @@ function App() {
       )}
 
       {/* Vacation planning page */}
-     {/* Only display when truthyCheck is false */}
+      {/* Only display when truthyCheck is false */}
       {!truthyCheck && (
       <div className='row mainContent bg-light'>
 
