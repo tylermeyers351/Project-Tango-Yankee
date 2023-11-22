@@ -3,27 +3,27 @@ import axios from 'axios';
 
 function Planner(props) {
     const vacayData = props.vacayData
+    
+    const city =  vacayData.location;
+    const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
-    const [city, setCity] = React.useState('');
-    const [imageURL, setImageURL] = React.useState('https://picsum.photos/600/200');
-
-    const handleInputChange = (e) => {
-        setCity(e.target.value);
-    };
-
-    const handleSearch = () => {
-        const imageURL = 'https://picsum.photos/200/300';
-        setImageURL(imageURL);
-    };
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${month}-${day}`;
+      };
 
     return (
         <div className="m-3">
             {vacayData && 
             <div>
-                <div>
-                    <h3>Trip to {vacayData.location}</h3>
-                    <p>From {vacayData.startDate} to {vacayData.endDate}</p>
-                    {imageURL && <img style={{ width: '100%' }} src={imageURL} alt="City" />}
+                <div className="image-box">
+                    <div className="top-left">
+                        <h4 className="mt-2">Trip to {vacayData.location}</h4>
+                        <p>From {formatDate(vacayData.startDate)} to {formatDate(vacayData.endDate)}</p>
+                    </div>
+                    {imageURL && <img style={{ width: '100%', height: 'auto', borderRadius: '15px' }} src={imageURL} alt="City" />}
                 </div>
 
                 <div>

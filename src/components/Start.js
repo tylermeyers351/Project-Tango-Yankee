@@ -61,6 +61,7 @@ function Start(props) {
           <div className="row m-3">
             <div>
               <input
+                autoComplete="off"
                 type="text"
                 id="location"
                 value={location}

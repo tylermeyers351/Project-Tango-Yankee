@@ -16,13 +16,13 @@ input {
   width: 100%;
 }
 
-.webHeader {
+.web-header {
   height: 15vh;
   text-align: center;
   font-size: calc(10px + 2vmin);
 }
 
-.mainContent {
+.main-content {
   height: 85vh;
 }
 
@@ -38,4 +38,20 @@ input {
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   color: #F5793B;
+}
+
+.image-box {
+  position: relative;
+  text-align: center;
+  color: black;
+  border-radius: 10px;
+}
+
+.top-left {
+  position: absolute;
+  padding: 3px;
+  top: 12px;
+  left: 20px;
+  background-color: whitesmoke;
+  border-radius: 15px;
 }

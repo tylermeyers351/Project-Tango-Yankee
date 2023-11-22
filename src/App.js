@@ -22,14 +22,14 @@ function App() {
   return (
     <div className='container-fluid'>
       
-      <div className='row webHeader bg-light'>
+      <div className='row web-header bg-light'>
           < Header />
       </div>
 
       {/* Initial landing page */}
       {/* Only display when truthyCheck is true - when switched to false, other components will be displayed */}
       {truthyCheck && (
-      <div className='row mainContent bg-light'>
+      <div className='row main-content bg-light'>
           <div className="col-1 col-md-3 col-xl-4" >
             {/* <p>Unused Column 1</p> */}
           </div>
@@ -45,7 +45,7 @@ function App() {
       {/* Vacation planning page */}
       {/* Only display when truthyCheck is false */}
       {!truthyCheck && (
-      <div className='row mainContent bg-light'>
+      <div className='row main-content bg-light'>
 
         {/* Sidebar component */}
         <div className="d-none d-lg-block col-lg-2 col-xl-2" >
