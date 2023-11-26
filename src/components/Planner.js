@@ -9,18 +9,20 @@ function Planner(props) {
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
 
-    // Notes
     const handleNoteSubmit = (e) => {
         const inputElement = document.getElementById('note');
-        const newNote = inputElement.value;
+        const newNote = inputElement.value.trim();
 
-        setNotes((prevNotes) => {
-            const updatedNotes = [...prevNotes, newNote];
-            localStorage.setItem("notes", JSON.stringify(updatedNotes));
-            return updatedNotes;
-        });
-        
-        localStorage.setItem("notes",  JSON.stringify([...notes, newNote]))
+        if (newNote != "") {
+            setNotes((prevNotes) => {
+                const updatedNotes = [...prevNotes, newNote];
+                localStorage.setItem("notes", JSON.stringify(updatedNotes));
+                return updatedNotes;
+            });
+            
+            localStorage.setItem("notes",  JSON.stringify([...notes, newNote]));
+            inputElement.value = "";
+        }
     };
 
     const formatDate = (dateString) => {
@@ -51,15 +53,26 @@ function Planner(props) {
                 <div>
                     <h5>Notes</h5>
                     
-                    {/* Notes */}
                     <div>
                         <input 
+                            className="mt-2 col-10"
                             autoComplete="off"
                             type="text"
                             id="note"
                             placeholder="Enter note here..." 
                         />
-                        <button onClick={handleNoteSubmit}>Submit</button>
+                        <button 
+                            style={{color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none'}}  
+                            className="btn p-1 mb-1 col-2" 
+                            onClick={handleNoteSubmit}
+                        >
+                            Submit
+                        </button>
+                        
+                        {notes.map((note,index)=> (
+                            <p className="mt-2">{index+1})&nbsp;{note}</p>
+                        ))}
+
                     </div>
                 </div>
                 <div>
