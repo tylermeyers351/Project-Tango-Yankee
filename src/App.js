@@ -59,10 +59,6 @@ function App() {
 
         {/* Map component */}
         <div className="col-12 col-lg-4 col-xl-4">
-          {/* <img
-            style={{ width: '100%' }}
-            src='https://blog.yelp.com/wp-content/uploads/2018/01/2018-01-25-11.24.49.png'
-          /> */}
           <div style={{ width: '100%' }}>
             <MapSection />
           </div>
