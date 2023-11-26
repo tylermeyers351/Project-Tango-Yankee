@@ -7,6 +7,22 @@ function Planner(props) {
     const city =  vacayData.location;
     const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
+    const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
+
+    // Notes
+    const handleNoteSubmit = (e) => {
+        const inputElement = document.getElementById('note');
+        const newNote = inputElement.value;
+
+        setNotes((prevNotes) => {
+            const updatedNotes = [...prevNotes, newNote];
+            localStorage.setItem("notes", JSON.stringify(updatedNotes));
+            return updatedNotes;
+        });
+        
+        localStorage.setItem("notes",  JSON.stringify([...notes, newNote]))
+    };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -34,9 +50,17 @@ function Planner(props) {
                 </div>
                 <div>
                     <h5>Notes</h5>
-                    <p>Note</p>
-                    <p>Note</p>
-                    <p>Note</p>
+                    
+                    {/* Notes */}
+                    <div>
+                        <input 
+                            autoComplete="off"
+                            type="text"
+                            id="note"
+                            placeholder="Enter note here..." 
+                        />
+                        <button onClick={handleNoteSubmit}>Submit</button>
+                    </div>
                 </div>
                 <div>
                     <h5>Itinerary</h5>
