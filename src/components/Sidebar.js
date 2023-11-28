@@ -3,6 +3,8 @@ import React from "react"
 function Sidebar(props) {
     const handleSubmit = () => {
         props.updateTruthy()
+        localStorage.removeItem("localData");
+        localStorage.removeItem("notes");
       };
 
     return (

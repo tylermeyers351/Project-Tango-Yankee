@@ -7,6 +7,24 @@ function Planner(props) {
     const city =  vacayData.location;
     const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
+    const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
+
+    const handleNoteSubmit = (e) => {
+        const inputElement = document.getElementById('note');
+        const newNote = inputElement.value.trim();
+
+        if (newNote != "") {
+            setNotes((prevNotes) => {
+                const updatedNotes = [...prevNotes, newNote];
+                localStorage.setItem("notes", JSON.stringify(updatedNotes));
+                return updatedNotes;
+            });
+            
+            localStorage.setItem("notes",  JSON.stringify([...notes, newNote]));
+            inputElement.value = "";
+        }
+    };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -34,9 +52,28 @@ function Planner(props) {
                 </div>
                 <div>
                     <h5>Notes</h5>
-                    <p>Note</p>
-                    <p>Note</p>
-                    <p>Note</p>
+                    
+                    <div>
+                        <input 
+                            className="mt-2 col-10"
+                            autoComplete="off"
+                            type="text"
+                            id="note"
+                            placeholder="Enter note here..." 
+                        />
+                        <button 
+                            style={{color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none'}}  
+                            className="btn p-1 mb-1 col-2" 
+                            onClick={handleNoteSubmit}
+                        >
+                            Submit
+                        </button>
+                        
+                        {notes.map((note,index)=> (
+                            <p className="mt-2">{index+1})&nbsp;{note}</p>
+                        ))}
+
+                    </div>
                 </div>
                 <div>
                     <h5>Itinerary</h5>

@@ -1,10 +1,10 @@
 
-#F5793B orange
-#111111 black
-#f7fbfc white
-#f79a6b light orange
-#f1580c orange 2
-#2a2a2a lighter black
+#F5793B orange  
+#111111 black  
+#f7fbfc white  
+#f79a6b light orange  
+#f1580c orange 2  
+#2a2a2a lighter black  
 
 # Getting Started with Create React App
 
