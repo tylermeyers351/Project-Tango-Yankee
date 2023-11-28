@@ -1,22 +1,40 @@
 import React from "react"
+import usePlacesAutocomplete, {
+    getGeocode,
+    getLatLng,
+} from "use-places-autocomplete";
+import { useLoadScript } from "@react-google-maps/api"
+import { Combobox, Listbox, Popover } from '@headlessui/react'
+
 
 function Start(props) {
     const [startDate, setStartDate] = React.useState('');
     const [endDate, setEndDate] = React.useState('');
     const [location, setLocation] = React.useState('');
     const [error, setError] = React.useState("");
+    const [libraries] = React.useState(['places'])
+    
+    const { isLoaded } = useLoadScript({ 
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        libraries,
+    })
+    
+    if (!isLoaded) {
+        return
+    }
+    
+    // Dom edit: Going to move these handle functions inline on their corresponding events below
+    // const handleStartDateChange = (e) => {
+    //   setStartDate(e.target.value);
+    // };
 
-    const handleStartDateChange = (e) => {
-      setStartDate(e.target.value);
-    };
+    // const handleEndDateChange = (e) => {
+    //   setEndDate(e.target.value);
+    // };
 
-    const handleEndDateChange = (e) => {
-      setEndDate(e.target.value);
-    };
-
-    const handleLocationChange = (e) => {
-      setLocation(e.target.value);
-    };
+    // const handleLocationChange = (e) => {
+    //   setLocation(e.target.value);
+    // };
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -51,6 +69,53 @@ function Start(props) {
 
       props.updateTruthy()
     };
+    
+    const PlacesAutoComplete = ({ setSelected }) => {
+        const {
+            ready,
+            value,
+            setValue,
+            suggestions: { status, data },
+            clearSuggestions
+        } = usePlacesAutocomplete()
+        
+        console.log({ status, data })
+        
+        return (
+            <Combobox>
+                <Combobox.Input
+                    value={value}
+                    onChange={event => setValue(event.target.value)}
+                    placeholder="Where to?"
+                    disabled={!ready}
+                />
+                <Popover>
+                    <Listbox>
+                        {status === 'OK' && data.map(({ place_id, description }) => {
+                            <Listbox.Option key={place_id} value={description} >
+                                {/* {description} */}
+                                test
+                            </Listbox.Option>
+                        })}
+                        
+                    </Listbox>
+                    <Popover.Panel>
+                        
+                    </Popover.Panel>
+                </Popover>
+            </Combobox>
+        )
+            
+        // <input
+        //     autoComplete="off"
+        //     type="text"
+        //     id="location"
+        //     value={value}
+        //     onChange={(event) => {setValue(event.target.value)}}
+        //     placeholder="Where to?"
+        //     disabled={!ready}
+        // />
+    }
 
     return (
       <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
@@ -60,14 +125,15 @@ function Start(props) {
           {/* Location Selection */}
           <div className="row m-3">
             <div>
-              <input
+                <PlacesAutoComplete />
+              {/* <input
                 autoComplete="off"
                 type="text"
                 id="location"
                 value={location}
-                onChange={handleLocationChange}
+                onChange={ (event) => { setLocation(event.target.value) } }
                 placeholder="Where to?"
-              />
+              /> */}
             </div>
           </div>
 
@@ -80,7 +146,7 @@ function Start(props) {
                 type="date"
                 id="startDate"
                 value={startDate}
-                onChange={handleStartDateChange}
+                onChange={(event) => { setStartDate(event.target.value) }}
               />
             </div>
 
@@ -90,7 +156,7 @@ function Start(props) {
                 type="date"
                 id="endDate"
                 value={endDate}
-                onChange={handleEndDateChange}
+                onChange={(event) => { setEndDate(event.target.value) }}
               />
             </div>
 
