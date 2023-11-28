@@ -39,6 +39,35 @@ function Start(props) {
         return
       };
 
+      // TM Edit 11/28 ----------------------------------------------------------
+      
+      // Calculate the difference in milliseconds then convert to days
+      const timeDifference = endDateObject.getTime() - startDateObject.getTime();
+      const milisecondsToDays = (1000 * 60 * 60 * 24);
+      const daysDifference = timeDifference / milisecondsToDays;
+
+      console.log("Number of days between the two dates:", daysDifference);
+      
+      let currentDate = startDateObject
+
+      let daysObject = {}
+
+      // Loop through each date, and add to daysObject
+      for (let i = 0; i <= daysDifference; i++) {
+        daysObject[i] = currentDate.toDateString()
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      localStorage.setItem("daysObject", JSON.stringify(daysObject));
+
+      // This is the object that I want to end up with
+      const daysData = {
+        0: {'11/28': {}},
+        1: {'11/29': {}},
+        2: {'11/30': {}}
+      }
+      // End TM Edit on 11/28 ---------------------------------------------------
+
       const vacationData = {
         startDate: startDate,
         endDate: endDate,
@@ -96,7 +125,8 @@ function Start(props) {
 
           </div>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {/* TM Edit 11/28 */}
+          {error && <p style={{ color: "red", textAlign:'center'}}>{error}</p>}
 
           <div className="d-grid m-4 p-1">
             <button style={{ color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none' }} onClick={handleSubmit} className="btn" type="button">Submit</button>

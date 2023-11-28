@@ -8,6 +8,7 @@ function Planner(props) {
     const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
+    const [days, setDays] = React.useState(JSON.parse(localStorage.getItem("daysObject")) || []);
 
     const handleNoteSubmit = (e) => {
         e.preventDefault();
@@ -82,9 +83,11 @@ function Planner(props) {
                 {/* Itinerary Section */}
                 <div>
                     <h5>Itinerary</h5>
-                    <p>Day</p>
-                    <p>Day</p>
-                    <p>Day</p>
+                    <ul className="list-group">
+                        {Object.values(days).map((day,index)=> (
+                            <li className="list-group-item list-group-item-light">{day}</li>
+                        ))}
+                    </ul>
                 </div>
             </div>
             }
