@@ -5,9 +5,10 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import { useLoadScript } from "@react-google-maps/api"
 import { Combobox, Listbox, Popover } from '@headlessui/react'
+import Inputs from "./Inputs";
 
 
-function Start(props) {
+function Start({ updateTruthy }) {
     const [startDate, setStartDate] = React.useState('');
     const [endDate, setEndDate] = React.useState('');
     const [location, setLocation] = React.useState('');
@@ -20,9 +21,27 @@ function Start(props) {
     })
     
     if (!isLoaded) {
-        return
+        return <p>Loading...</p>
     }
     
+    function handleSubmit() {
+        console.log('yew')
+    }
+    
+    function handleError(errorMessage) {
+        setError(errorMessage)
+    }
+    
+    return (
+        <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
+            <h3 style={{ color: '#2a2a2a' }} className="m-4">Plan the Trip of a Lifetime!</h3>
+        
+        <form onSubmit={handleSubmit}>
+            <Inputs />
+        </form>
+      </div>
+    )
+}
     // Dom edit: Going to move these handle functions inline on their corresponding events below
     // const handleStartDateChange = (e) => {
     //   setStartDate(e.target.value);
@@ -36,140 +55,140 @@ function Start(props) {
     //   setLocation(e.target.value);
     // };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+//     const handleSubmit = (e) => {
+//       e.preventDefault();
 
-      if (!location.trim()) {
-        setError("Location cannot be empty.");
-        return;
-      };
+//       if (!location.trim()) {
+//         handleError("Location cannot be empty.");
+//         return;
+//       };
 
-      if (!startDate || !endDate) {
-        setError("Please select start and end dates.");
-        return;
-      };
+//       if (!startDate || !endDate) {
+//         handleError("Please select start and end dates.");
+//         return;
+//       };
 
-      const startDateObject = new Date(startDate);
-      const endDateObject = new Date(endDate);
+//       const startDateObject = new Date(startDate);
+//       const endDateObject = new Date(endDate);
 
-      if (startDateObject >= endDateObject) {
-        setError("Please use valid dates.")
-        return
-      };
+//       if (startDateObject >= endDateObject) {
+//         setError("Please use valid dates.")
+//         return
+//       };
 
-      const vacationData = {
-        startDate: startDate,
-        endDate: endDate,
-        location: location
-      };
+//       const vacationData = {
+//         startDate: startDate,
+//         endDate: endDate,
+//         location: location
+//       };
 
-      setError("");
+//       setError("");
 
-      localStorage.setItem("localData", JSON.stringify(vacationData));
+//       localStorage.setItem("localData", JSON.stringify(vacationData));
 
-      props.updateTruthy()
-    };
+//       props.updateTruthy()
+//     };
     
-    const PlacesAutoComplete = ({ setSelected }) => {
-        const {
-            ready,
-            value,
-            setValue,
-            suggestions: { status, data },
-            clearSuggestions
-        } = usePlacesAutocomplete()
+//     const PlacesAutoComplete = ({ setSelected }) => {
+//         const {
+//             ready,
+//             value,
+//             setValue,
+//             suggestions: { status, data },
+//             clearSuggestions
+//         } = usePlacesAutocomplete()
         
-        console.log({ status, data })
+//         console.log({ status, data })
         
-        return (
-            <Combobox>
-                <Combobox.Input
-                    value={value}
-                    onChange={event => setValue(event.target.value)}
-                    placeholder="Where to?"
-                    disabled={!ready}
-                />
-                <Popover>
-                    <Listbox>
-                        {status === 'OK' && data.map(({ place_id, description }) => {
-                            <Listbox.Option key={place_id} value={description} >
-                                {/* {description} */}
-                                test
-                            </Listbox.Option>
-                        })}
+//         return (
+//             <Combobox>
+//                 <Combobox.Input
+//                     value={value}
+//                     onChange={event => setValue(event.target.value)}
+//                     placeholder="Where to?"
+//                     disabled={!ready}
+//                 />
+//                 <Popover>
+//                     <Listbox>
+//                         {status === 'OK' && data.map(({ place_id, description }) => {
+//                             <Listbox.Option key={place_id} value={description} >
+//                                 {/* {description} */}
+//                                 test
+//                             </Listbox.Option>
+//                         })}
                         
-                    </Listbox>
-                    <Popover.Panel>
+//                     </Listbox>
+//                     <Popover.Panel>
                         
-                    </Popover.Panel>
-                </Popover>
-            </Combobox>
-        )
+//                     </Popover.Panel>
+//                 </Popover>
+//             </Combobox>
+//         )
             
-        // <input
-        //     autoComplete="off"
-        //     type="text"
-        //     id="location"
-        //     value={value}
-        //     onChange={(event) => {setValue(event.target.value)}}
-        //     placeholder="Where to?"
-        //     disabled={!ready}
-        // />
-    }
+//         // <input
+//         //     autoComplete="off"
+//         //     type="text"
+//         //     id="location"
+//         //     value={value}
+//         //     onChange={(event) => {setValue(event.target.value)}}
+//         //     placeholder="Where to?"
+//         //     disabled={!ready}
+//         // />
+//     }
 
-    return (
-      <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
-        <h3 style={{ color: '#2a2a2a' }} className="m-4">Plan the Trip of a Lifetime!</h3>
+//     return (
+//       <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
+//         <h3 style={{ color: '#2a2a2a' }} className="m-4">Plan the Trip of a Lifetime!</h3>
 
-        <form onSubmit={handleSubmit}>
-          {/* Location Selection */}
-          <div className="row m-3">
-            <div>
-                <PlacesAutoComplete />
-              {/* <input
-                autoComplete="off"
-                type="text"
-                id="location"
-                value={location}
-                onChange={ (event) => { setLocation(event.target.value) } }
-                placeholder="Where to?"
-              /> */}
-            </div>
-          </div>
+//         <form onSubmit={handleSubmit}>
+//           {/* Location Selection */}
+//           <div className="row m-3">
+//             <div>
+//                 <PlacesAutoComplete />
+//               {/* <input
+//                 autoComplete="off"
+//                 type="text"
+//                 id="location"
+//                 value={location}
+//                 onChange={ (event) => { setLocation(event.target.value) } }
+//                 placeholder="Where to?"
+//               /> */}
+//             </div>
+//           </div>
 
-          {/* Date Selection */}
-          <div className="row m-3">
+//           {/* Date Selection */}
+//           <div className="row m-3">
             
-            <div className="col">
-              <label htmlFor="startDate">Start Date:&nbsp;</label>
-              <input
-                type="date"
-                id="startDate"
-                value={startDate}
-                onChange={(event) => { setStartDate(event.target.value) }}
-              />
-            </div>
+//             <div className="col">
+//               <label htmlFor="startDate">Start Date:&nbsp;</label>
+//               <input
+//                 type="date"
+//                 id="startDate"
+//                 value={startDate}
+//                 onChange={(event) => { setStartDate(event.target.value) }}
+//               />
+//             </div>
 
-            <div className="col">
-              <label htmlFor="endDate">End Date:&nbsp;</label>
-              <input
-                type="date"
-                id="endDate"
-                value={endDate}
-                onChange={(event) => { setEndDate(event.target.value) }}
-              />
-            </div>
+//             <div className="col">
+//               <label htmlFor="endDate">End Date:&nbsp;</label>
+//               <input
+//                 type="date"
+//                 id="endDate"
+//                 value={endDate}
+//                 onChange={(event) => { setEndDate(event.target.value) }}
+//               />
+//             </div>
 
-          </div>
+//           </div>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
+//           {error && <p style={{ color: "red" }}>{error}</p>}
 
-          <div className="d-grid m-4 p-1">
-            <button style={{ color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none' }} onClick={handleSubmit} className="btn" type="button">Submit</button>
-          </div>
-        </form>
-      </div>
-    );
-}
+//           <div className="d-grid m-4 p-1">
+//             <button style={{ color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none' }} onClick={handleSubmit} className="btn" type="button">Submit</button>
+//           </div>
+//         </form>
+//       </div>
+//     );
+// }
   
 export default Start;
