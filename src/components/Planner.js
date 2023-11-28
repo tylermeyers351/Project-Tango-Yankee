@@ -10,12 +10,13 @@ function Planner(props) {
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
 
     const handleNoteSubmit = (e) => {
+        e.preventDefault();
         const inputElement = document.getElementById('note');
         const newNote = inputElement.value.trim();
 
         if (newNote != "") {
             setNotes((prevNotes) => {
-                const updatedNotes = [...prevNotes, newNote];
+                const updatedNotes = [newNote, ...prevNotes];
                 localStorage.setItem("notes", JSON.stringify(updatedNotes));
                 return updatedNotes;
             });
@@ -36,6 +37,8 @@ function Planner(props) {
         <div className="m-3">
             {vacayData && 
             <div>
+
+                {/* Image and trip overview box */}
                 <div className="image-box">
                     <div className="top-left">
                         <h4 className="mt-2">Trip to {vacayData.location}</h4>
@@ -44,37 +47,39 @@ function Planner(props) {
                     {imageURL && <img style={{ width: '100%', height: 'auto', borderRadius: '15px' }} src={imageURL} alt="City" />}
                 </div>
 
+                {/* Places section (Yelp API) */}
                 <div>
                     <h5>Explore</h5>
                     <p>Place</p>
                     <p>Place</p>
                     <p>Place</p>
                 </div>
-                <div>
+                <div className="border"></div>
+                
+                {/* Notes section */}
+                <div className="mt-1">
                     <h5>Notes</h5>
-                    
-                    <div>
-                        <input 
-                            className="mt-2 col-10"
-                            autoComplete="off"
-                            type="text"
-                            id="note"
-                            placeholder="Enter note here..." 
-                        />
-                        <button 
-                            style={{color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none'}}  
-                            className="btn p-1 mb-1 col-2" 
-                            onClick={handleNoteSubmit}
-                        >
-                            Submit
-                        </button>
-                        
+                    <form onSubmit={handleNoteSubmit}>
+                        <ul className="list-group">
+                            <input 
+                                className="list-group-item list-group-item-warning"
+                                autoComplete="off"
+                                type="text"
+                                id="note"
+                                placeholder="Enter note here..." 
+                            />
+                        </ul>
+                    </form>
+                    <ul className="list-group">
                         {notes.map((note,index)=> (
-                            <p className="mt-2">{index+1})&nbsp;{note}</p>
+                            <li className="list-group-item list-group-item-warning">{note}</li>
                         ))}
-
-                    </div>
+                    </ul>
                 </div>
+                <br></br>
+                <div className="border"></div>
+                
+                {/* Itinerary Section */}
                 <div>
                     <h5>Itinerary</h5>
                     <p>Day</p>
