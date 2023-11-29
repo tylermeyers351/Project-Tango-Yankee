@@ -1,7 +1,11 @@
 import React from "react"
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
 
-function MapSection(props) {
+function MapSection({ latLng }) {
+    
+    const positionTest = latLng
+    console.log(positionTest)
+    
     const position = { lat: 34.1753152, lng: -118.9087979 }
     
     return (
@@ -9,7 +13,7 @@ function MapSection(props) {
             <div style={{ height: '100vh', width: '100%'}}>
                 <Map
                 zoom={9}
-                center={ position }
+                center={ positionTest }
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
                 />

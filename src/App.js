@@ -11,6 +11,10 @@ function App() {
   // True displays the <Start /> component,
   // and false displays the <Sidebar />, <Planner />, and <Map /> components.
   const [truthyCheck, setTruthyCheck] = React.useState(!localStorage.getItem('localData'))
+  const [latLng, setLatLng] = React.useState({ 
+    lat: 34.1753152,
+    lng: -118.9087979
+  })
 
   function updateTruthy() {
     setTruthyCheck(prevState => !prevState)
@@ -18,6 +22,8 @@ function App() {
   }
 
   const vacayData = JSON.parse(localStorage.getItem("localData"))
+  
+  
 
   return (
     <div className='container-fluid'>
@@ -34,7 +40,7 @@ function App() {
             {/* <p>Unused Column 1</p> */}
           </div>
           <div className="col-10 col-md-6 col-xl-4">
-            <Start updateTruthy={updateTruthy} />
+            <Start updateTruthy={updateTruthy} setLatLng={setLatLng}/>
           </div>
           <div className="col-1 col-md-3 col-xl-4">
             {/* <p>Unused Column 3</p> */}
@@ -60,7 +66,7 @@ function App() {
         {/* Map component */}
         <div className="col-12 col-lg-4 col-xl-4">
           <div style={{ width: '100%' }}>
-            <MapSection />
+            <MapSection latLng={latLng}/>
           </div>
         </div>
 
