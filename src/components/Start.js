@@ -1,18 +1,12 @@
 import React from "react"
-import usePlacesAutocomplete, {
-    getGeocode,
-    getLatLng,
-} from "use-places-autocomplete";
 import { useLoadScript } from "@react-google-maps/api"
-import { Combobox, Listbox, Popover } from '@headlessui/react'
-import Inputs from "./Inputs";
+import SearchForm from "./SearchForm";
 
 
-function Start({ updateTruthy }) {
+function Start({ updateTruthy, setLatLng }) {
     const [startDate, setStartDate] = React.useState('');
     const [endDate, setEndDate] = React.useState('');
     const [location, setLocation] = React.useState('');
-    const [error, setError] = React.useState("");
     const [libraries] = React.useState(['places'])
     
     const { isLoaded } = useLoadScript({ 
@@ -24,21 +18,21 @@ function Start({ updateTruthy }) {
         return <p>Loading...</p>
     }
     
-    function handleSubmit() {
-        console.log('yew')
-    }
-    
-    function handleError(errorMessage) {
-        setError(errorMessage)
-    }
-    
     return (
         <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
             <h3 style={{ color: '#2a2a2a' }} className="m-4">Plan the Trip of a Lifetime!</h3>
-        
-        <form onSubmit={handleSubmit}>
-            <Inputs />
-        </form>
+            
+            <SearchForm 
+                updateTruthy={updateTruthy}
+                location={location}
+                setLocation={setLocation}
+                startDate={startDate} 
+                setStartDate={setStartDate} 
+                endDate={endDate} 
+                setEndDate={setEndDate}
+                setLatLng={setLatLng}
+            />
+            
       </div>
     )
 }
@@ -89,52 +83,7 @@ function Start({ updateTruthy }) {
 //       props.updateTruthy()
 //     };
     
-//     const PlacesAutoComplete = ({ setSelected }) => {
-//         const {
-//             ready,
-//             value,
-//             setValue,
-//             suggestions: { status, data },
-//             clearSuggestions
-//         } = usePlacesAutocomplete()
-        
-//         console.log({ status, data })
-        
-//         return (
-//             <Combobox>
-//                 <Combobox.Input
-//                     value={value}
-//                     onChange={event => setValue(event.target.value)}
-//                     placeholder="Where to?"
-//                     disabled={!ready}
-//                 />
-//                 <Popover>
-//                     <Listbox>
-//                         {status === 'OK' && data.map(({ place_id, description }) => {
-//                             <Listbox.Option key={place_id} value={description} >
-//                                 {/* {description} */}
-//                                 test
-//                             </Listbox.Option>
-//                         })}
-                        
-//                     </Listbox>
-//                     <Popover.Panel>
-                        
-//                     </Popover.Panel>
-//                 </Popover>
-//             </Combobox>
-//         )
-            
-//         // <input
-//         //     autoComplete="off"
-//         //     type="text"
-//         //     id="location"
-//         //     value={value}
-//         //     onChange={(event) => {setValue(event.target.value)}}
-//         //     placeholder="Where to?"
-//         //     disabled={!ready}
-//         // />
-//     }
+    
 
 //     return (
 //       <div className="mt-5" style={{ border: '1px solid grey', borderRadius: '10px' }}>
