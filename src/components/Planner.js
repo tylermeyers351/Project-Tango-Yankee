@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 
 function Planner(props) {
+    const tyler = 'tyler'
     const vacayData = props.vacayData
     
     const city =  vacayData.location;
