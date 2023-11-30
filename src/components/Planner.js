@@ -8,14 +8,14 @@ function Planner(props) {
     const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
-    const [days, setDays] = React.useState(JSON.parse(localStorage.getItem("daysObject")) || []);
+    const days = JSON.parse(localStorage.getItem("daysObject")) || [];
 
     const handleNoteSubmit = (e) => {
         e.preventDefault();
         const inputElement = document.getElementById('note');
         const newNote = inputElement.value.trim();
 
-        if (newNote != "") {
+        if (newNote !== "") {
             setNotes((prevNotes) => {
                 const updatedNotes = [newNote, ...prevNotes];
                 localStorage.setItem("notes", JSON.stringify(updatedNotes));
