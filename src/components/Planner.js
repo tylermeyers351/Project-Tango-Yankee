@@ -1,8 +1,9 @@
 import React from "react";
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Planner(props) {
-    const tyler = 'tyler'
     const vacayData = props.vacayData
     
     const city =  vacayData.location;
@@ -23,9 +24,23 @@ function Planner(props) {
                 return updatedNotes;
             });
             
-            localStorage.setItem("notes",  JSON.stringify([...notes, newNote]));
             inputElement.value = "";
         }
+    };
+
+    const handleDeleteNote = (index) => {
+        console.log(`Delete note at index ${index}`);
+
+        setNotes((prevNotes) => {
+            let newNotes = []
+            for (let i = 0; i < prevNotes.length; i++) {
+                if (i !== index) {
+                    newNotes.push(prevNotes[i])
+                }
+            }
+            localStorage.setItem("notes", JSON.stringify(newNotes));
+            return newNotes;
+        });
     };
 
     const formatDate = (dateString) => {
@@ -74,7 +89,12 @@ function Planner(props) {
                     </form>
                     <ul className="list-group">
                         {notes.map((note,index)=> (
-                            <li className="list-group-item list-group-item-warning">{note}</li>
+                            <li className="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
+                                {note}
+                                <div onClick={() => handleDeleteNote(index)}>
+                                    <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+                                </div>
+                            </li>
                         ))}
                     </ul>
                 </div>
