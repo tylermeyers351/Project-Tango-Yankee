@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 function Planner(props) {
     const vacayData = props.vacayData
@@ -48,7 +48,18 @@ function Planner(props) {
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
         return `${month}-${day}`;
-      };
+    };
+
+    // Logic for expanding itinerary
+    const [expandedItems, setExpandedItems] = React.useState({});
+
+    const toggleExpand = (index) => {
+        console.log("Itinerary item clicked at #", index)
+        setExpandedItems((prev) => ({
+            ...prev,
+            [index]: !prev[index]
+        }));
+    };
 
     return (
         <div className="m-3">
@@ -89,7 +100,9 @@ function Planner(props) {
                     </form>
                     <ul className="list-group">
                         {notes.map((note,index)=> (
-                            <li className="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
+                            <li 
+                                key={index}
+                                className="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
                                 {note}
                                 <div onClick={() => handleDeleteNote(index)}>
                                     <FontAwesomeIcon icon={faTrash} className="trash-icon" />
@@ -106,7 +119,32 @@ function Planner(props) {
                     <h5>Itinerary</h5>
                     <ul className="list-group">
                         {Object.values(days).map((day,index)=> (
-                            <li className="list-group-item list-group-item-light">{day}</li>
+                            <div>
+                                <li 
+                                    key={index}
+                                    className={
+                                        `list-group-item list-group-item-light d-flex justify-content-between align-items-center 
+                                        ${expandedItems[index] ? 'expanded' : ''}`
+                                        }
+                                    onClick={() => toggleExpand(index)}
+                                >
+                                    {day}
+                                    <div>
+                                        <FontAwesomeIcon icon={expandedItems[index] ? faMinus : faPlus} />
+                                    </div>
+                                    
+                                </li>
+                                {expandedItems[index] && (
+                                    <li 
+                                        key={index}
+                                        className={
+                                            `list-group-item list-group-item-secondary d-flex justify-content-between align-items-center`
+                                        }
+                                    >
+                                        <p className="m-0">12:00pm - go to Eiffel tower</p>
+                                    </li>
+                                )}
+                            </div>
                         ))}
                     </ul>
                 </div>
