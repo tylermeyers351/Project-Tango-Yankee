@@ -113,20 +113,22 @@ function PlacesAutocomplete({ setLocation, setLatLng }) {
     }
     
     return (
-        <Combobox onChange={handleSelect}>
-            <Combobox.Input 
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-                placeholder='Where to?'
-                disabled={!ready}
-            />
-            <Combobox.Options>
-                {status === 'OK' && 
-                    data.map(({ place_id, description }) => (
-                        <Combobox.Option key={place_id} value={description}>{description}</Combobox.Option>
-                    ))
-                }
-            </Combobox.Options>
-        </Combobox>
+        <div className='col'>    
+            <Combobox onChange={handleSelect}>
+                <Combobox.Input 
+                    value={value}
+                    onChange={(event) => setValue(event.target.value)}
+                    placeholder='Where to?'
+                    disabled={!ready}
+                />
+                <Combobox.Options>
+                    {status === 'OK' && 
+                        data.map(({ place_id, description }) => (
+                            <Combobox.Option key={place_id} value={description}>{description}</Combobox.Option>
+                        ))
+                    }
+                </Combobox.Options>
+            </Combobox>
+        </div>
     )
 }

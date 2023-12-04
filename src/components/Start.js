@@ -32,7 +32,6 @@ function Start({ updateTruthy, setLatLng }) {
                 setEndDate={setEndDate}
                 setLatLng={setLatLng}
             />
-            
       </div>
     )
 }
