@@ -75,7 +75,7 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
                 </div>
             </div>
             
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p style={{ color: "red" }} className='text-center'>{error}</p>}
 
             <div className="d-grid m-4 p-1">
                 <button 
@@ -113,21 +113,29 @@ function PlacesAutocomplete({ setLocation, setLatLng }) {
     }
     
     return (
-        <div className='col'>    
+        <div className='m-4 p-1'>     
             <Combobox onChange={handleSelect}>
-                <Combobox.Input 
-                    value={value}
-                    onChange={(event) => setValue(event.target.value)}
-                    placeholder='Where to?'
-                    disabled={!ready}
-                />
-                <Combobox.Options>
-                    {status === 'OK' && 
-                        data.map(({ place_id, description }) => (
-                            <Combobox.Option key={place_id} value={description}>{description}</Combobox.Option>
-                        ))
-                    }
-                </Combobox.Options>
+                {({ open }) => (
+                    <>
+                        <Combobox.Input 
+                            value={value}
+                            onChange={(event) => setValue(event.target.value)}
+                            placeholder='Where to?'
+                            disabled={!ready}
+                        />
+                        <div className={open ? 'border border-dark pt-3' : ''}>
+                            <Combobox.Options>
+                                {status === 'OK' && 
+                                    data.map(({ place_id, description }) => (
+                                        <Combobox.Option key={place_id} value={description}>{description}</Combobox.Option>
+                                    ))
+                                }
+                            </Combobox.Options>
+                        </div>
+                    </>
+                )
+                    
+                }
             </Combobox>
         </div>
     )
