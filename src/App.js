@@ -7,6 +7,7 @@ import React from "react"
 
 
 function App() {
+  const hello = 'hello'
   // If there is data in local Storage (localData), it will start the truthyCheck as false. 
   // True displays the <Start /> component,
   // and false displays the <Sidebar />, <Planner />, and <Map /> components.
