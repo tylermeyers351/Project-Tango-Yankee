@@ -1,7 +1,7 @@
 import React from "react";
-import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
 
 function Planner(props) {
     const vacayData = props.vacayData
@@ -60,6 +60,36 @@ function Planner(props) {
             [index]: !prev[index]
         }));
     };
+
+    // Yelp API
+    const [places, setPlaces] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchYelpData = async () => {
+            try {
+                const apiUrl = 'https://api.yelp.com/v3/businesses/search';
+                const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // CORS Anywhere proxy
+
+                const response = await axios.get(
+                    `${proxyUrl}${apiUrl}`, {
+                        headers: {
+                            Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`,
+                        },
+                        params: {
+                            term: 'restaurant',
+                            location: vacayData.location,
+                        },
+                    }
+                );
+
+                setPlaces(response.data.businesses);
+                console.log("Yelp data: ", places);
+            } catch (error) {
+                console.error('Error fetching Yelp data: ', error);
+            }
+        };
+        fetchYelpData();
+    }, [vacayData.location])
 
     return (
         <div className="m-3">
