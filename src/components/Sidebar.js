@@ -5,6 +5,7 @@ function Sidebar(props) {
         props.updateTruthy()
         localStorage.removeItem("localData");
         localStorage.removeItem("notes");
+        localStorage.removeItem("coordinates");
       };
 
     return (

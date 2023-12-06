@@ -135,6 +135,7 @@ function PlacesAutocomplete({ setLocation, setLatLng }) {
         
         const results = await getGeocode({ address })
         const { lat, lng } = await getLatLng(results[0])
+        localStorage.setItem("coordinates", JSON.stringify([lat, lng]))
         setLatLng({
             lat,
             lng

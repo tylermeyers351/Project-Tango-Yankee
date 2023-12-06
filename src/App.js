@@ -8,8 +8,8 @@ function App() {
   // If there is data in local Storage (localData), it will start the truthyCheck as false.
   const [truthyCheck, setTruthyCheck] = React.useState(!localStorage.getItem('localData'))
   const [latLng, setLatLng] = React.useState({ 
-    lat: 34.1753152,
-    lng: -118.9087979
+    lat: localStorage.getItem("coordinates") ? JSON.parse(localStorage.getItem("coordinates"))[0] : 37.7749,
+    lng: localStorage.getItem("coordinates") ? JSON.parse(localStorage.getItem("coordinates"))[1] : 122.4194
   })
 
   function updateTruthy() {
