@@ -10,9 +10,9 @@ function MapSection({ latLng }) {
     
     return (
         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>            
-            <div style={{ height: '100vh', width: '100%'}}>
+            <div style={{ height: '82vh', width: '100%'}}>
                 <Map
-                zoom={9}
+                zoom={13}
                 center={ positionTest }
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}

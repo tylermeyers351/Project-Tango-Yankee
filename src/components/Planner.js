@@ -82,14 +82,17 @@ function Planner(props) {
                     }
                 );
 
-                setPlaces(response.data.businesses);
-                console.log("Yelp data: ", places);
+                setPlaces(response.data.businesses.slice(0,3));
             } catch (error) {
                 console.error('Error fetching Yelp data: ', error);
             }
         };
         fetchYelpData();
-    }, [vacayData.location])
+    }, [vacayData.location, setPlaces])
+
+    React.useEffect(() => {
+        console.log("Yelp data: ", places);
+    }, [places]);
 
     return (
         <div className="m-3">
@@ -108,9 +111,9 @@ function Planner(props) {
                 {/* Places section (Yelp API) */}
                 <div>
                     <h5>Explore</h5>
-                    <p>Place</p>
-                    <p>Place</p>
-                    <p>Place</p>
+                    {places.map((place) => {
+                        <p>{place}</p>   
+                    })}
                 </div>
                 <div className="border"></div>
                 
