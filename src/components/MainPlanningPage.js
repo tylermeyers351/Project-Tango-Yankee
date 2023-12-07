@@ -7,13 +7,13 @@ function MainPlanningPage({updateTruthy, truthyCheck, vacayData, latLng}) {
         <div className='row main-content bg-light'>
 
         {/* Sidebar component */}
-        <div className="d-none d-lg-block col-lg-1" >
+        {/* <div className="d-none d-lg-block col-lg-1" >
           <Sidebar updateTruthy={updateTruthy} truthyCheck={truthyCheck}/>
-        </div>
+        </div> */}
 
         {/* Planner (main) component */}
-        <div className="col-12 col-lg-6">
-          < Planner vacayData={vacayData} />
+        <div className="col-12 col-lg-7">
+          < Planner updateTruthy={updateTruthy} vacayData={vacayData} />
         </div>
 
         {/* Map component */}

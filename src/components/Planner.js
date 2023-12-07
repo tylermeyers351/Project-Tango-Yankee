@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faMinus, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 
 function Planner(props) {
@@ -11,6 +11,13 @@ function Planner(props) {
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
     const days = JSON.parse(localStorage.getItem("daysObject")) || [];
+
+    const handleNewTripSubmit = () => {
+        props.updateTruthy()
+        localStorage.removeItem("localData");
+        localStorage.removeItem("notes");
+        localStorage.removeItem("coordinates");
+    };
 
     const handleNoteSubmit = (e) => {
         e.preventDefault();
@@ -76,7 +83,6 @@ function Planner(props) {
                             Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`,
                         },
                         params: {
-                            term: 'restaurant',
                             location: vacayData.location,
                         },
                     }
@@ -94,6 +100,15 @@ function Planner(props) {
         console.log("Yelp data: ", places);
     }, [places]);
 
+    const getStarImage = (rating) => {
+        if (rating % 1 === 0) {
+            return `${process.env.PUBLIC_URL}/review_stars/small_${rating}@3x.png`;
+        } else {
+            rating = rating - 0.5
+            return `${process.env.PUBLIC_URL}/review_stars/small_${rating}_half@3x.png`;
+        }
+    }
+
     return (
         <div className="m-3">
             {vacayData && 
@@ -108,18 +123,55 @@ function Planner(props) {
                     {imageURL && <img style={{ width: '100%', height: 'auto', borderRadius: '15px' }} src={imageURL} alt="City" />}
                 </div>
 
+                <br></br>
+                <div className="border"></div>
+
                 {/* Places section (Yelp API) */}
-                <div>
-                    <h5>Explore</h5>
-                    {places.map((place) => {
-                        <p>{place}</p>   
-                    })}
+                <div className="mt-1">
+                    <h4>Explore</h4>
+                    <div className="card-group">
+                        {places.map((place) => {
+                            return(
+                                <div key={place.id} className="card">
+                                    <div className="card-img-top-container">
+                                        <a href={place.url}>
+                                            <img src={place.image_url} className="card-img-top" alt="Restaurant"/>
+                                        </a>
+                                    </div>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{place.name}</h5>
+                                        <p className="m-0 card-text">
+                                            <img 
+                                                src={getStarImage(place.rating)}
+                                                style={{width: "46%"}}
+                                            /> 
+                                            <b className="mt-1 pt-1">&nbsp;{place.rating.toFixed(1)}</b><br></br>
+                                            <small className="card-text">
+                                                {place.review_count.toLocaleString()} reviews
+                                            </small>
+                                        </p>
+                                        <p className="bold-p m-0">
+                                            {place.categories[0].title} &bull; {place.categories[1].title} &bull; {place.categories[2].title}
+                                        </p>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small className="text-muted">
+                                            <FontAwesomeIcon icon={faMapPin} />
+                                            &nbsp;{place.location.city} &bull; {place.price}
+                                        </small>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
+
+                <br></br>
                 <div className="border"></div>
                 
                 {/* Notes section */}
                 <div className="mt-1">
-                    <h5>Notes</h5>
+                    <h4>Notes</h4>
                     <form onSubmit={handleNoteSubmit}>
                         <ul className="list-group">
                             <input 
@@ -144,17 +196,18 @@ function Planner(props) {
                         ))}
                     </ul>
                 </div>
+
                 <br></br>
                 <div className="border"></div>
                 
                 {/* Itinerary Section */}
-                <div>
-                    <h5>Itinerary</h5>
+                <div className="mt-1">
+                    <h4>Itinerary</h4>
                     <ul className="list-group">
-                        {Object.values(days).map((day,index)=> (
-                            <div>
+                        {Object.entries(days).map(([id, day],index)=> (
+                            <div key={`DIV_Key-${id}`}>
                                 <li 
-                                    key={index}
+                                    key={`Header-${id}`}
                                     className={
                                         `list-group-item list-group-item-light d-flex justify-content-between align-items-center 
                                         ${expandedItems[index] ? 'expanded' : ''}`
@@ -169,7 +222,7 @@ function Planner(props) {
                                 </li>
                                 {expandedItems[index] && (
                                     <li 
-                                        key={index}
+                                        key={`Content-${id}`}
                                         className={
                                             `list-group-item list-group-item-secondary d-flex justify-content-between align-items-center`
                                         }
@@ -180,7 +233,16 @@ function Planner(props) {
                             </div>
                         ))}
                     </ul>
+                    <button
+                        className="mt-3 btn" 
+                        style={{color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none', width: '100%'}} 
+                        onClick={handleNewTripSubmit} 
+                        type="button"
+                    >
+                        New Trip!
+                    </button>
                 </div>
+
             </div>
             }
         </div>

@@ -4,6 +4,8 @@ import usePlacesAutocomplete, {
     getLatLng,
 } from "use-places-autocomplete";
 import { Combobox } from '@headlessui/react';
+import {v4 as uuidv4} from 'uuid';
+
 
 export default function SearchForm({ updateTruthy, location, setLocation, startDate, setStartDate, endDate, setEndDate, setLatLng }) {
     
@@ -45,7 +47,7 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
 
     // Loop through each date, and add to daysObject
     for (let i = 0; i <= daysDifference; i++) {
-    daysObject[i] = currentDate.toDateString()
+    daysObject[uuidv4()] = currentDate.toDateString()
     currentDate.setDate(currentDate.getDate() + 1);
     }
 

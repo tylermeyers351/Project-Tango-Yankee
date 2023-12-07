@@ -1,7 +1,7 @@
 import React from "react"
 
 function Sidebar(props) {
-    const handleSubmit = () => {
+    const handleNewTripSubmit = () => {
         props.updateTruthy()
         localStorage.removeItem("localData");
         localStorage.removeItem("notes");
@@ -26,7 +26,7 @@ function Sidebar(props) {
             </div>
             <button 
                 style={{color: 'white', backgroundColor: '#F5793B', fontWeight: 'bold', border: 'none'}} 
-                onClick={handleSubmit} className="btn" type="button">
+                onClick={handleNewTripSubmit} className="btn" type="button">
                 New Trip!
             </button>
         </div>
