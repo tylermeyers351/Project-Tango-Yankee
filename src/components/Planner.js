@@ -8,7 +8,7 @@ function Planner(props) {
     const vacayData = props.vacayData
     
     const city =  vacayData.location;
-    const imageURL = `https://source.unsplash.com/500x250/?${city}`;
+    // const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
     const days = JSON.parse(localStorage.getItem("daysObject")) || [];
@@ -131,7 +131,6 @@ function Planner(props) {
             // Log the result to the console
             let randIndex = Math.floor(Math.random() * 10);
             let newPhotoReference = data.result.photos[randIndex].photo_reference;
-            console.log('Photo Reference:', photoReference);
             setPhotoReference(newPhotoReference)
             } catch (error) {
             console.error('Error fetching place details:', error);
@@ -152,13 +151,12 @@ function Planner(props) {
                     <div className="top-left">
                         <h4 className="mt-2">Trip to {vacayData.location}</h4>
                         <p>From {formatDate(vacayData.startDate)} to {formatDate(vacayData.endDate)}</p>
-                    </div>
-                    {imageURL && 
-                        <img 
-                            style={{ width: '100%', height: 'auto', borderRadius: '10px' }} 
-                            src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=400&photoreference=${photoReference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} 
-                            alt="City" 
-                        />}
+                    </div> 
+                    <img 
+                        style={{ width: '100%', height: 'auto', borderRadius: '10px' }} 
+                        src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=10000&photoreference=${photoReference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} 
+                        alt="City" 
+                    />}
                 </div>
 
                 <br></br>
