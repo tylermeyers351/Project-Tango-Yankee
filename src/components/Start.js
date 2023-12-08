@@ -15,7 +15,7 @@ function Start({ updateTruthy, setLatLng }) {
     })
     
     if (!isLoaded) {
-        return <p>Loading...</p>
+        return <p style={{ color: "red", textAlign: 'center' }}>Loading...</p>
     }
     
     return (

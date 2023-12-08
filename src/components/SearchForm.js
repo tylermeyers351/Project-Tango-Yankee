@@ -32,34 +32,25 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
             return
         };
 
-    // TM Edit 11/28 ----------------------------------------------------------
       
-    // Calculate the difference in milliseconds then convert to days
-    const timeDifference = endDateObject.getTime() - startDateObject.getTime();
-    const milisecondsToDays = (1000 * 60 * 60 * 24);
-    const daysDifference = timeDifference / milisecondsToDays;
+        // Calculate the difference in milliseconds then convert to days
+        const timeDifference = endDateObject.getTime() - startDateObject.getTime();
+        const milisecondsToDays = (1000 * 60 * 60 * 24);
+        const daysDifference = timeDifference / milisecondsToDays;
 
-    console.log("Number of days between the two dates:", daysDifference);
-    
-    let currentDate = startDateObject
+        console.log("Number of days between the two dates:", daysDifference);
+        
+        let currentDate = startDateObject
 
-    let daysObject = {}
+        let daysObject = {}
 
-    // Loop through each date, and add to daysObject
-    for (let i = 0; i <= daysDifference; i++) {
-    daysObject[uuidv4()] = currentDate.toDateString()
-    currentDate.setDate(currentDate.getDate() + 1);
-    }
+        // Loop through each date, and add to daysObject
+        for (let i = 0; i <= daysDifference; i++) {
+        daysObject[uuidv4()] = currentDate.toDateString()
+        currentDate.setDate(currentDate.getDate() + 1);
+        }
 
-    localStorage.setItem("daysObject", JSON.stringify(daysObject));
-
-    // This is the object that I want to end up with
-    const daysData = {
-    0: {'11/28': {}},
-    1: {'11/29': {}},
-    2: {'11/30': {}}
-    }
-    // End TM Edit on 11/28 ---------------------------------------------------
+        localStorage.setItem("daysObject", JSON.stringify(daysObject));
 
         const vacationData = {
             startDate: startDate,
@@ -156,13 +147,18 @@ function PlacesAutocomplete({ setLocation, setLatLng }) {
                             disabled={!ready}
                         />
                         <div className={open ? 'border border-dark pt-3' : ''}>
-                            <Combobox.Options>
-                                {status === 'OK' && 
-                                    data.map(({ place_id, description }) => (
-                                        <Combobox.Option key={place_id} value={description}>{description}</Combobox.Option>
-                                    ))
-                                }
-                            </Combobox.Options>
+                        <Combobox.Options>
+                            {status === 'OK' && 
+                            data.map(({ place_id, description }) => {
+                            localStorage.setItem("place_id", JSON.stringify(place_id))
+                            return (
+                                <Combobox.Option key={place_id} value={description}>
+                                    {description}
+                                </Combobox.Option>
+                            );
+                            })
+                        }
+                        </Combobox.Options>
                         </div>
                     </>
                 )

@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faMinus, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
+import {v4 as uuidv4} from 'uuid';
 
 function Planner(props) {
     const vacayData = props.vacayData
@@ -69,6 +70,7 @@ function Planner(props) {
     };
 
     // Yelp API
+
     const [places, setPlaces] = React.useState([]);
 
     React.useEffect(() => {
@@ -87,8 +89,9 @@ function Planner(props) {
                         },
                     }
                 );
-
-                setPlaces(response.data.businesses.slice(0,3));
+                // Random number generation so it will randomly slice from the 20 results that come from the API
+                let randNum = Math.floor(Math.random() * 17);
+                setPlaces(response.data.businesses.slice(randNum, randNum + 3));
             } catch (error) {
                 console.error('Error fetching Yelp data: ', error);
             }
@@ -109,6 +112,36 @@ function Planner(props) {
         }
     }
 
+    const [photoReference, setPhotoReference] = React.useState('');
+
+    React.useEffect(() => {
+        const placeId = JSON.parse(localStorage.getItem("place_id"))
+        // const placeId = "ChIJJxjVrDOGwoARSNYFc-CPSlY"
+        // photoReference = 'AWU5eFicq2AlXmbQPeS7ksameKZXCng6zr_u86im40lEO8n1atZ0QhHz9auztvA23bdV_ysTF5WgjOnjRPyR6jkRzOKC0KV2Q9YbieScX3kX1EBnsEqdxxM_N29UaxwqneJ1GfdKpT3LF7pAMl-w-z90pIzJpAhVzrK9sZ8cZXejD_ZnIvZ3'
+        
+        const fetchPlaceDetails = async () => {
+            try {
+            // Use the CORS proxy before the Google Places API URL
+            const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const googleApiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photo&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+
+            const response = await fetch(`${corsProxyUrl}${googleApiUrl}`);
+            const data = await response.json();
+        
+            // Log the result to the console
+            let randIndex = Math.floor(Math.random() * 10);
+            let newPhotoReference = data.result.photos[randIndex].photo_reference;
+            console.log('Photo Reference:', photoReference);
+            setPhotoReference(newPhotoReference)
+            } catch (error) {
+            console.error('Error fetching place details:', error);
+            }
+        };
+        
+        fetchPlaceDetails();
+    }, []);
+
+
     return (
         <div className="m-3">
             {vacayData && 
@@ -120,7 +153,12 @@ function Planner(props) {
                         <h4 className="mt-2">Trip to {vacayData.location}</h4>
                         <p>From {formatDate(vacayData.startDate)} to {formatDate(vacayData.endDate)}</p>
                     </div>
-                    {imageURL && <img style={{ width: '100%', height: 'auto', borderRadius: '15px' }} src={imageURL} alt="City" />}
+                    {imageURL && 
+                        <img 
+                            style={{ width: '100%', height: 'auto', borderRadius: '10px' }} 
+                            src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=400&photoreference=${photoReference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} 
+                            alt="City" 
+                        />}
                 </div>
 
                 <br></br>
@@ -144,6 +182,7 @@ function Planner(props) {
                                             <img 
                                                 src={getStarImage(place.rating)}
                                                 style={{width: "46%"}}
+                                                alt="Stars"
                                             /> 
                                             <b className="mt-1 pt-1">&nbsp;{place.rating.toFixed(1)}</b><br></br>
                                             <small className="card-text">
@@ -151,7 +190,11 @@ function Planner(props) {
                                             </small>
                                         </p>
                                         <p className="bold-p m-0">
-                                            {place.categories[0].title} &bull; {place.categories[1].title} &bull; {place.categories[2].title}
+                                            {place.categories.map((category, index)=> (
+                                                <small key={uuidv4()}>
+                                                    {index !== 0 ? '\u00A0\u2022\u00A0' : ""}{category.title}
+                                                </small>
+                                            ))}
                                         </p>
                                     </div>
                                     <div className="card-footer">
