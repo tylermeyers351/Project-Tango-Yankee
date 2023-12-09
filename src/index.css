@@ -45,7 +45,7 @@ input {
   text-align: center;
   color: black;
   border-radius: 10px;
-  max-height: 350px; /* Adjust the height as needed */
+  max-height: 250px; /* Adjust the height as needed */
   overflow: hidden;
 }
 

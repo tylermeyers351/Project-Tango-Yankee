@@ -37,8 +37,6 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
         const timeDifference = endDateObject.getTime() - startDateObject.getTime();
         const milisecondsToDays = (1000 * 60 * 60 * 24);
         const daysDifference = timeDifference / milisecondsToDays;
-
-        console.log("Number of days between the two dates:", daysDifference);
         
         let currentDate = startDateObject
 
@@ -46,8 +44,15 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
 
         // Loop through each date, and add to daysObject
         for (let i = 0; i <= daysDifference; i++) {
-        daysObject[uuidv4()] = currentDate.toDateString()
-        currentDate.setDate(currentDate.getDate() + 1);
+            const uuid = uuidv4();
+            const dateString = currentDate.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+            daysObject[uuid] = dateString
+            currentDate.setDate(currentDate.getDate() + 1);
         }
 
         localStorage.setItem("daysObject", JSON.stringify(daysObject));
@@ -57,8 +62,6 @@ export default function SearchForm({ updateTruthy, location, setLocation, startD
             endDate: endDate,
             location: location,
         };
-        
-        console.log(vacationData)
         
         setError("");
 

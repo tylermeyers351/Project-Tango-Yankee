@@ -14,7 +14,6 @@ function App() {
 
   function updateTruthy() {
     setTruthyCheck(prevState => !prevState)
-    console.log("Truthy updated. Switching components out.")
   }
 
   const vacayData = JSON.parse(localStorage.getItem("localData"))

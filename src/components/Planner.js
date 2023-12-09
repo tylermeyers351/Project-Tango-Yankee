@@ -8,7 +8,7 @@ function Planner(props) {
     const vacayData = props.vacayData
     
     const city =  vacayData.location;
-    // const imageURL = `https://source.unsplash.com/500x250/?${city}`;
+    const imageURL = `https://source.unsplash.com/500x250/?${city}`;
 
     const [notes, setNotes] = React.useState(JSON.parse(localStorage.getItem("notes")) || []);
     const days = JSON.parse(localStorage.getItem("daysObject")) || [];
@@ -37,8 +37,6 @@ function Planner(props) {
     };
 
     const handleDeleteNote = (index) => {
-        console.log(`Delete note at index ${index}`);
-
         setNotes((prevNotes) => {
             let newNotes = []
             for (let i = 0; i < prevNotes.length; i++) {
@@ -112,33 +110,41 @@ function Planner(props) {
         }
     }
 
-    const [photoReference, setPhotoReference] = React.useState('');
+    // Commented code below for google place api to fetch an image for image box
+    // const [photoReference, setPhotoReference] = React.useState('');
 
-    React.useEffect(() => {
-        const placeId = JSON.parse(localStorage.getItem("place_id"))
-        // const placeId = "ChIJJxjVrDOGwoARSNYFc-CPSlY"
-        // photoReference = 'AWU5eFicq2AlXmbQPeS7ksameKZXCng6zr_u86im40lEO8n1atZ0QhHz9auztvA23bdV_ysTF5WgjOnjRPyR6jkRzOKC0KV2Q9YbieScX3kX1EBnsEqdxxM_N29UaxwqneJ1GfdKpT3LF7pAMl-w-z90pIzJpAhVzrK9sZ8cZXejD_ZnIvZ3'
+    // React.useEffect(() => {
+    //     const placeId = JSON.parse(localStorage.getItem("place_id"))
+    //     // const placeId = "ChIJJxjVrDOGwoARSNYFc-CPSlY"
+    //     // photoReference = 'AWU5eFicq2AlXmbQPeS7ksameKZXCng6zr_u86im40lEO8n1atZ0QhHz9auztvA23bdV_ysTF5WgjOnjRPyR6jkRzOKC0KV2Q9YbieScX3kX1EBnsEqdxxM_N29UaxwqneJ1GfdKpT3LF7pAMl-w-z90pIzJpAhVzrK9sZ8cZXejD_ZnIvZ3'
         
-        const fetchPlaceDetails = async () => {
-            try {
-            // Use the CORS proxy before the Google Places API URL
-            const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            const googleApiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photo&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    //     const fetchPlaceDetails = async () => {
+    //         try {
+    //         // Use the CORS proxy before the Google Places API URL
+    //         const corsProxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    //         const googleApiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=photo&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 
-            const response = await fetch(`${corsProxyUrl}${googleApiUrl}`);
-            const data = await response.json();
+    //         const response = await fetch(`${corsProxyUrl}${googleApiUrl}`);
+    //         const data = await response.json();
         
-            // Log the result to the console
-            let randIndex = Math.floor(Math.random() * 10);
-            let newPhotoReference = data.result.photos[randIndex].photo_reference;
-            setPhotoReference(newPhotoReference)
-            } catch (error) {
-            console.error('Error fetching place details:', error);
-            }
-        };
+    //         // Log the result to the console
+    //         let randIndex = Math.floor(Math.random() * 10);
+    //         let newPhotoReference = data.result.photos[randIndex].photo_reference;
+    //         setPhotoReference(newPhotoReference)
+    //         } catch (error) {
+    //         console.error('Error fetching place details:', error);
+    //         }
+    //     };
         
-        fetchPlaceDetails();
-    }, []);
+    //     fetchPlaceDetails();
+    // }, []);
+
+    function handleTextareaChange(index, event) {
+        const newText = event.target.value;
+        // Do something with newText or store it in your component state
+        console.log(`Textarea at index ${index} changed. New value: ${newText}`);
+        localStorage.setItem(index, JSON.stringify(newText))
+    }
 
 
     return (
@@ -154,9 +160,10 @@ function Planner(props) {
                     </div> 
                     <img 
                         style={{ width: '100%', height: 'auto', borderRadius: '10px' }} 
-                        src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=10000&photoreference=${photoReference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} 
-                        alt="City" 
-                    />}
+                        // src={`https://maps.googleapis.com/maps/api/place/photo?maxheight=10000&photoreference=${photoReference}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`} 
+                        src={imageURL}
+                        alt="City"
+                    />
                 </div>
 
                 <br></br>
@@ -219,7 +226,7 @@ function Planner(props) {
                                 className="list-group-item list-group-item-warning"
                                 autoComplete="off"
                                 type="text"
-                                id="note"
+                                id="note"   
                                 placeholder="Enter note here..." 
                             />
                         </ul>
@@ -262,14 +269,24 @@ function Planner(props) {
                                     
                                 </li>
                                 {expandedItems[index] && (
-                                    <li 
-                                        key={`Content-${id}`}
-                                        className={
-                                            `list-group-item list-group-item-secondary d-flex justify-content-between align-items-center`
-                                        }
-                                    >
-                                        <p className="m-0">12:00pm - go to Eiffel tower</p>
-                                    </li>
+                                    <>
+                                        <textarea
+                                            id={`text-area-${index}`}
+                                            className="form-control list-group-item list-group-item-secondary"
+                                            rows="4"
+                                            type="text" 
+                                            name="itinerary_notes"
+                                            placeholder="Where to?"
+                                            onChange={(event) => handleTextareaChange(index, event)}
+                                            value={localStorage.getItem(`${index}`) || ''}
+                                        />
+                                        {/* <li 
+                                            key={`Content-${id}`}
+                                            className={`list-group-item list-group-item-secondary d-flex justify-content-between align-items-center`}
+                                        >
+                                            12:00pm - go to Eiffel tower
+                                        </li> */}
+                                    </>
                                 )}
                             </div>
                         ))}

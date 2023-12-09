@@ -1,78 +1,44 @@
+# Tycation.com - React Project  
 
-#F5793B orange  
-#111111 black  
-#f7fbfc white  
-#f79a6b light orange  
-#f1580c orange 2  
-#2a2a2a lighter black  
+#### Authors: Tyler Meyers with collaboration from fellow code-master Dominic Santini  
 
-# Getting Started with Create React App
+**Project completion:** December 2023
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Summary
 
-## Available Scripts
+Tycation.com is a React project developed by "Project Tango Yankee" and Dominic Santini. The project served as a valuable learning experience in React, incorporating features such as location selection, date picking, itinerary creation, and exploration of local places through the Yelp API.
 
-In the project directory, you can run:
+## Key Files
 
-### `npm start`
+### App.js
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`App.js` serves as the main entry point for Tycation.com, orchestrating the rendering of different components based on the application's state. It manages the website's layout, user authentication, and conditional rendering between the initial landing page and the main planning page.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Planner.js
 
-### `npm test`
+`Planner.js` is a React component representing the main planning page of Tycation.com. It incorporates functionalities for managing trip details, exploring places through the Yelp API, creating and editing notes, and structuring a day-by-day itinerary. The file showcases the use of React hooks, Axios for API requests, and FontAwesome icons.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### SearchForm.js
 
-### `npm run build`
+`SearchForm.js` contains React components for user input and form submission related to planning a trip on Tycation.com. It includes a location selection with Places Autocomplete, date picking, error handling, and a Combobox for location suggestions. The file ensures a smooth user experience when entering trip details, with credit to Dominic Santini for the Google Places API integration.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### MapSection.js
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`MapSection.js` is a React component responsible for rendering a Google Map using the `@vis.gl/react-google-maps` library. This component dynamically centers the map based on geographical coordinates (`latLng`) and provides an interactive view of the planned trip location. The integration includes API key configuration and responsive design for various screen sizes. Special thanks to Dominic Santini for his contributions to the map section.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to Run the Application
 
-### `npm run eject`
+To run the application, follow these steps:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Ensure you have Node.js installed on your system.
+2. Clone this repository to your local machine.
+3. Navigate to the project directory in the terminal.
+4. Run `npm install` to install the necessary dependencies. (If there's issues run 'npm audit fix --force')
+5. Create a `.env` file with your Google Maps API key: `REACT_APP_GOOGLE_MAPS_API_KEY=your-api-key` and Yelp API key: `REACT_APP_YELP_API_KEY`
+6. For CORS workaround, need to enable tempoarary access here 'https://cors-anywhere.herokuapp.com/corsdemo' 
+7. Run `npm start` to start the development server.
+8. Open your browser and go to `http://localhost:3000` to view the application.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Additional Information
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Tycation.com represents a collaborative effort, symbolizing the authors' progress in web development. It integrates various React features, external API usage, and responsive design, embodying their commitment to continuous learning and project implementation.
