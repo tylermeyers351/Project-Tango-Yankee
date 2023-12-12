@@ -148,6 +148,7 @@ function PlacesAutocomplete({ setLocation, setLatLng }) {
                             onChange={(event) => setValue(event.target.value)}
                             placeholder='Where to?'
                             disabled={!ready}
+                            autocomplete="off"
                         />
                         <div className={open ? 'border border-dark pt-3' : ''}>
                         <Combobox.Options>

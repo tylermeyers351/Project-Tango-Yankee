@@ -14,10 +14,8 @@ function Planner(props) {
     const days = JSON.parse(localStorage.getItem("daysObject")) || [];
 
     const handleNewTripSubmit = () => {
-        props.updateTruthy()
-        localStorage.removeItem("localData");
-        localStorage.removeItem("notes");
-        localStorage.removeItem("coordinates");
+        props.updateTruthy();
+        localStorage.clear();
     };
 
     const handleNoteSubmit = (e) => {
@@ -65,6 +63,10 @@ function Planner(props) {
             ...prev,
             [index]: !prev[index]
         }));
+
+        if (expandedItems[index]) {
+            console.log("THING", JSON.parse(localStorage.getItem(index)))
+        }
     };
 
     // Yelp API
@@ -139,11 +141,17 @@ function Planner(props) {
     //     fetchPlaceDetails();
     // }, []);
 
+    const [textAreas, setTextAreas] = React.useState(JSON.parse(localStorage.getItem("textAreas")) || [])
+
     function handleTextareaChange(index, event) {
         const newText = event.target.value;
-        // Do something with newText or store it in your component state
         console.log(`Textarea at index ${index} changed. New value: ${newText}`);
-        localStorage.setItem(index, JSON.stringify(newText))
+        const newTextAreas = [...textAreas];
+
+        newTextAreas[index] = newText;
+        
+        setTextAreas(newTextAreas);
+        localStorage.setItem("textAreas", JSON.stringify(newTextAreas))
     }
 
 
@@ -269,24 +277,17 @@ function Planner(props) {
                                     
                                 </li>
                                 {expandedItems[index] && (
-                                    <>
-                                        <textarea
-                                            id={`text-area-${index}`}
-                                            className="form-control list-group-item list-group-item-secondary"
-                                            rows="4"
-                                            type="text" 
-                                            name="itinerary_notes"
-                                            placeholder="Where to?"
-                                            onChange={(event) => handleTextareaChange(index, event)}
-                                            value={localStorage.getItem(`${index}`) || ''}
-                                        />
-                                        {/* <li 
-                                            key={`Content-${id}`}
-                                            className={`list-group-item list-group-item-secondary d-flex justify-content-between align-items-center`}
-                                        >
-                                            12:00pm - go to Eiffel tower
-                                        </li> */}
-                                    </>
+                                    <textarea
+                                        id={`text-area-${index}`}
+                                        className="form-control list-group-item list-group-item-secondary"
+                                        rows="4"
+                                        type="text" 
+                                        name="itinerary_notes"
+                                        placeholder="Where to?"
+                                        onChange={(event) => handleTextareaChange(index, event)}
+                                        value={textAreas[index]}
+                                        // value={JSON.parse(localStorage.getItem(`${index}`))}
+                                    />
                                 )}
                             </div>
                         ))}
