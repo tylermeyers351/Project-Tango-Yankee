@@ -1,6 +1,6 @@
 # Tycation.com - React Project  
 
-#### Authors: Tyler Meyers with collaboration from fellow code-master Dominic Santini  
+#### Authors: Tyler Meyers with collaboration from fellow code-master [Dominic Santini](https://github.com/domsantini) 
 #### Youtube demonstration: https://www.youtube.com/watch?v=MVRm4pS-ImE  
 
 **Project completion:** December 2023
