@@ -1,30 +1,31 @@
 # Tycation.com - React Project  
 
 #### Authors: Tyler Meyers with collaboration from fellow code-master Dominic Santini  
+#### Youtube demonstration: https://www.youtube.com/watch?v=MVRm4pS-ImE  
 
 **Project completion:** December 2023
 
 ## Summary
 
-Tycation.com is a React project developed by "Project Tango Yankee" and Dominic Santini. The project served as a valuable learning experience in React, incorporating features such as location selection, date picking, itinerary creation, and exploration of local places through the Yelp API.
+Tycation.com is a React project developed by Tyler Meyers and Dominic Santini. The project served as a valuable learning experience in React, incorporating features such as location selection, notes generation, itinerary creation, and exploration of local places through the Yelp Fusion API and Google Maps/Places API.
 
 ## Key Files
 
 ### App.js
 
-`App.js` serves as the main entry point for Tycation.com, orchestrating the rendering of different components based on the application's state. It manages the website's layout, user authentication, and conditional rendering between the initial landing page and the main planning page.
+`App.js` serves as the main entry point for Tycation.com, orchestrating the rendering of different components based on the application's state. It manages the website's layout and conditional rendering between the initial landing page and the main planning page.
 
 ### Planner.js
 
 `Planner.js` is a React component representing the main planning page of Tycation.com. It incorporates functionalities for managing trip details, exploring places through the Yelp API, creating and editing notes, and structuring a day-by-day itinerary. The file showcases the use of React hooks, Axios for API requests, and FontAwesome icons.
 
-### SearchForm.js
+### Start.js and SearchForm.js
 
-`SearchForm.js` contains React components for user input and form submission related to planning a trip on Tycation.com. It includes a location selection with Places Autocomplete, date picking, error handling, and a Combobox for location suggestions. The file ensures a smooth user experience when entering trip details, with credit to Dominic Santini for the Google Places API integration.
+`Start.js` and `SearchForm.js` contains React components for user input and form submission related to planning a trip on Tycation.com. It includes a location selection with Places Autocomplete, date picking, error handling, and a Combobox for location suggestions. The file ensures a smooth user experience when entering trip details, with credit to Dominic Santini for the Google Places API integration.
 
 ### MapSection.js
 
-`MapSection.js` is a React component responsible for rendering a Google Map using the `@vis.gl/react-google-maps` library. This component dynamically centers the map based on geographical coordinates (`latLng`) and provides an interactive view of the planned trip location. The integration includes API key configuration and responsive design for various screen sizes. Special thanks to Dominic Santini for his contributions to the map section.
+`MapSection.js` is a React component responsible for rendering a Google Map using the `@vis.gl/react-google-maps` library. This component dynamically centers the map based on geographical coordinates (`latLng`) and provides an interactive view of the planned trip location. The integration includes API key configuration and responsive design for various screen sizes. Special thanks to Dominic Santini for his contributions with the map section.
 
 ## How to Run the Application
 
@@ -41,4 +42,4 @@ To run the application, follow these steps:
 
 ## Additional Information
 
-Tycation.com represents a collaborative effort, symbolizing the authors' progress in web development. It integrates various React features, external API usage, and responsive design, embodying their commitment to continuous learning and project implementation.
+Tycation.com represents a collaborative effort, symbolizing the authors' progress in web development and collaboration. It integrates various React features, external API usage, and responsive design, embodying their commitment to continuous learning and project implementation.
